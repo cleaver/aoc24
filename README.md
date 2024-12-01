@@ -1,21 +1,22 @@
-# Aoc24
+# Advent of Code 2024
 
-**TODO: Add description**
+Uses [Advent of Code Utilities](https://hexdocs.pm/advent_of_code_utils/readme.html)
 
 ## Installation
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `aoc24` to your list of dependencies in `mix.exs`:
+Set day and year in [/config/config.exs](/config/config.exs).
 
-```elixir
-def deps do
-  [
-    {:aoc24, "~> 0.1.0"}
-  ]
-end
+```sh
+mix deps.get
+export ADVENT_SESSION="..."
+mix aoc
 ```
 
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at <https://hexdocs.pm/aoc24>.
+To run in IEX:
 
+```sh
+iex -S mix
+
+iex(1)> p1e  ## runs part 1 with example input
+iex(2)> p1i  ## runs part 2 with full input
+```
