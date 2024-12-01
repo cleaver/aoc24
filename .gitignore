@@ -26,3 +26,10 @@ aoc24-*.tar
 /tmp/
 
 .env
+
+/.elixir_ls/
+/.elixir-tools/
+
+# AOC stuff
+/input/*.txt
+!/input/*example.txt
