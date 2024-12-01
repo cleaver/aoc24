@@ -35,7 +35,7 @@ aoc 2024, 1 do
       |> parse_input()
       |> parse_lists()
 
-    hist_list_2 = Enum.reduce(list2, %{}, fn x, acc -> Map.update(acc, x, 1, &(&1 + 1)) end)
+    hist_list_2 = Enum.frequencies(list2)
 
     list1
     |> Enum.map(&(&1 * Map.get(hist_list_2, &1, 0)))
