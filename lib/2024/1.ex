@@ -16,7 +16,7 @@ aoc 2024, 1 do
   defp parse_lists(input) do
     Enum.reduce(input, {[], []}, fn line, {acc1, acc2} ->
       [_, first, second] = Regex.run(~r/(\d+)\s+(\d+)/, line)
-      {acc1 ++ [String.to_integer(first)], acc2 ++ [String.to_integer(second)]}
+      {[String.to_integer(first) | acc1], [String.to_integer(second) | acc2]}
     end)
   end
 
