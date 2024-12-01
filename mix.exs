@@ -23,7 +23,6 @@ defmodule Aoc24.MixProject do
     [
       {:advent_of_code_utils, "~> 4.0"},
       {:arrays, "~> 2.1.1"},
-      {:dotenvy, "~> 0.8.0"},
       {:ex_doc, "~> 0.24", only: :dev},
       {:mix_test_watch, "~> 1.0", only: :dev, runtime: false},
       {:nx, "~> 0.9.1"}

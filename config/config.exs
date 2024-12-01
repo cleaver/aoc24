@@ -1,7 +1,4 @@
 import Config
-import Dotenvy
-
-source!([".env", System.get_env()])
 
 config :advent_of_code_utils,
   session: System.get_env("ADVENT_SESSION"),
