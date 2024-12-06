@@ -67,7 +67,7 @@ aoc 2024, 4 do
 
   defp match_string(grid, row_index, col_index, row_move, col_move, pattern) do
     pattern
-    |> Enum.reduce_while(0, fn {char, index}, acc ->
+    |> Enum.reduce_while(0, fn {char, index}, _acc ->
       if grid[{row_index + row_move * index, col_index + col_move * index}] == char do
         {:cont, 1}
       else
