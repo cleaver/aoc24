@@ -42,7 +42,7 @@ aoc 2024, 6 do
   defp walk_grid(grid, position, direction \\ {-1, 0}) do
     next_position = add_position(position, direction)
 
-    case check_position(grid, next_position, direction) do
+    case check_position(grid, next_position) do
       :out_of_bounds ->
         next_position
 
@@ -58,7 +58,7 @@ aoc 2024, 6 do
   defp add_position({row, col}, {row_offset, col_offset}),
     do: {row + row_offset, col + col_offset}
 
-  defp check_position(grid, position, direction) do
+  defp check_position(grid, position) do
     case grid[position] do
       nil -> :out_of_bounds
       "#" -> :blocked
@@ -98,24 +98,59 @@ aoc 2024, 6 do
 
     visited_cells = MapSetAgent.dump(@visited_mapset)
 
-    # possible_loops =
-    #   Enum.reduce(visited_cells, 0, fn candidate_cell, acc ->
-    #     MapSetAgent.clear(@visited_mapset)
-    #     test_grid = Map.put(grid, candidate_cell, "#")
+    possible_loops =
+      Enum.reduce(visited_cells, 0, fn candidate_cell, acc ->
+        MapSetAgent.clear(@visited_mapset)
+        test_grid = Map.put(grid, candidate_cell, "#")
+        IO.write("#{inspect(candidate_cell)}")
 
-    #     if walk_grid(test_grid, start_position) == :loop do
-    #       IO.write(".")
-    #       acc + 1
-    #     else
-    #       acc
-    #     end
-    #   end)
+        if walk_loop(test_grid, start_position) == :loop do
+          IO.puts(" loop")
+          acc + 1
+        else
+          IO.puts(" .")
+          acc
+        end
+      end)
 
-    # MapSetAgent.stop(@visited_mapset)
-    # possible_loops
+    IO.puts("done")
+    MapSetAgent.stop(@visited_mapset)
+    possible_loops
   end
 
-  # defp test_for_loop(grid, position, direction \\ {-1, 0}) do
-  #   next_position
-  # end
+  defp walk_loop(grid, position, direction \\ {-1, 0}) do
+    next_position = add_position(position, direction)
+
+    case check_position_loop(grid, next_position, direction) do
+      :out_of_bounds ->
+        :out_of_bounds
+
+      :loop ->
+        :loop
+
+      :blocked ->
+        walk_loop(grid, position, @next_direction[direction])
+
+      :empty ->
+        MapSetAgent.put({next_position, direction}, @visited_mapset)
+        walk_loop(grid, next_position, direction)
+    end
+  end
+
+  defp check_position_loop(grid, position, direction) do
+    case grid[position] do
+      nil ->
+        :out_of_bounds
+
+      "#" ->
+        :blocked
+
+      _ ->
+        if MapSetAgent.member?({position, direction}, @visited_mapset) do
+          :loop
+        else
+          :empty
+        end
+    end
+  end
 end
