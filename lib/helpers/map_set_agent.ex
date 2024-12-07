@@ -26,4 +26,10 @@ defmodule MapSetAgent do
       state
     end)
   end
+
+  def clear(name \\ __MODULE__) do
+    Agent.update(name, fn _state ->
+      MapSet.new()
+    end)
+  end
 end
