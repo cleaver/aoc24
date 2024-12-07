@@ -25,15 +25,31 @@ aoc 2024, 7 do
     end)
   end
 
+  defp check_calculation(calibration, [el | elements], [op | operators], acc) do
+    new_acc = calculate(acc, el, op)
+
+    # maybe quit early
+    if new_acc <= calibration do
+      check_calculation(calibration, elements, operators, new_acc)
+    else
+      false
+    end
+  end
+
+  defp check_calculation(calibration, [], [], acc) do
+    acc == calibration
+  end
+
   defp check_calculation(calibration, elements, operators) do
-    operators
-    |> Enum.zip_reduce(tl(elements), hd(elements), fn op, term, acc ->
-      case op do
-        :+ -> acc + term
-        :* -> acc * term
-      end
-    end)
-    |> Kernel.==(calibration)
+    check_calculation(calibration, tl(elements), operators, hd(elements))
+  end
+
+  defp calculate(acc, term, op) do
+    case op do
+      :+ -> acc + term
+      :* -> acc * term
+      :|| -> "#{acc}#{term}" |> String.to_integer()
+    end
   end
 
   defp parse_line(line) do
