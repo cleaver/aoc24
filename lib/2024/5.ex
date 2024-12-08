@@ -134,7 +134,6 @@ aoc 2024, 5 do
     |> Enum.map(fn update ->
       list_of_pages =
         get_page_list(update)
-        |> IO.inspect(label: "before reorder")
 
       matching_rules = get_matching_rules(list_of_pages, rules)
 
@@ -147,7 +146,6 @@ aoc 2024, 5 do
       |> Map.to_list()
       |> Enum.sort(fn {_, first}, {_, second} -> first < second end)
       |> Enum.map(&elem(&1, 0))
-      |> IO.inspect(label: "after reorder")
     end)
   end
 

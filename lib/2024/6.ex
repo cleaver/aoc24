@@ -102,18 +102,14 @@ aoc 2024, 6 do
       Enum.reduce(visited_cells, 0, fn candidate_cell, acc ->
         MapSetAgent.clear(@visited_mapset)
         test_grid = Map.put(grid, candidate_cell, "#")
-        IO.write("#{inspect(candidate_cell)}")
 
         if walk_loop(test_grid, start_position) == :loop do
-          IO.puts(" loop")
           acc + 1
         else
-          IO.puts(" .")
           acc
         end
       end)
 
-    IO.puts("done")
     MapSetAgent.stop(@visited_mapset)
     possible_loops
   end

@@ -58,10 +58,7 @@ aoc 2024, 2 do
     |> Enum.map(&split_to_integer_list/1)
     # |> Enum.map(&damper_safe?/1)
     |> Enum.map(fn list ->
-      IO.inspect(list, charlists: :as_lists)
-
       damper_safe?(list)
-      |> IO.inspect(label: "safe")
     end)
   end
 
@@ -75,11 +72,8 @@ aoc 2024, 2 do
   end
 
   defp damper_safe?([level1, level2, level3 | rest], previously_dropped, direction) do
-    IO.inspect([level1, level2, level3], charlists: :as_lists, label: "\nbefore drop_one")
-
     {[new_level2, new_level3], newly_dropped} =
       drop_one([level1, level2, level3], previously_dropped, direction)
-      |> IO.inspect(label: "after drop_one", charlists: :as_lists)
 
     maybe_drop_last(rest, newly_dropped) or
       (dbg(safe?([new_level2, new_level3], direction)) and
@@ -87,10 +81,10 @@ aoc 2024, 2 do
   end
 
   defp damper_safe?([level1, level2], true, :ascending),
-    do: level1 < level2 |> IO.inspect(label: "safe2")
+    do: level1 < level2
 
   defp damper_safe?([level1, level2], true, :descending),
-    do: level1 > level2 |> IO.inspect(label: "safe3")
+    do: level1 > level2
 
   ## drop_one
   defp drop_one([_, level2, level3], true, _direction), do: {[level2, level3], true}
