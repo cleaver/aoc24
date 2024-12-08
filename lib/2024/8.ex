@@ -45,8 +45,7 @@ aoc 2024, 8 do
 
   defp find_antinodes(antennae, antinodes, limit, resonant? \\ false) do
     Enum.reduce(antennae, antinodes, fn {_frequency, positions}, antinodes ->
-      combine(positions, 2)
-      |> Enum.filter(fn [pos1, pos2] -> pos1 != pos2 end)
+      permute(positions, 2)
       |> Enum.reduce(antinodes, fn [pos1, pos2], antinodes ->
         difference = subtract(pos2, pos1)
         antinodes_up = find_increasing(pos2, difference, limit, resonant?)

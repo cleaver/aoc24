@@ -38,7 +38,7 @@ defmodule ListHelpers do
   defp compare_lists([], []), do: true
   defp compare_lists([], _), do: true
   defp compare_lists(_, []), do: false
-  defp compare_lists([x | xs], [y | ys]) when x < y, do: true
-  defp compare_lists([x | xs], [y | ys]) when x > y, do: false
-  defp compare_lists([x | xs], [y | ys]), do: compare_lists(xs, ys)
+  defp compare_lists([x | _], [y | _]) when x < y, do: true
+  defp compare_lists([x | _], [y | _]) when x > y, do: false
+  defp compare_lists([_ | xs], [_ | ys]), do: compare_lists(xs, ys)
 end
