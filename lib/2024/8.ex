@@ -20,7 +20,6 @@ aoc 2024, 8 do
     |> record_antennae()
     |> find_antinodes(antinodes, limit)
     |> MapSet.to_list()
-    |> Enum.filter(fn {row, col} -> row >= 0 and col >= 0 and row < limit and col < limit end)
     |> Enum.count()
   end
 
@@ -48,12 +47,10 @@ aoc 2024, 8 do
       permute(positions, 2)
       |> Enum.reduce(antinodes, fn [pos1, pos2], antinodes ->
         difference = subtract(pos2, pos1)
-        antinodes_up = find_increasing(pos2, difference, limit, resonant?)
-        antinodes_down = find_decreasing(pos1, difference, limit, resonant?)
 
         antinodes
-        |> record_antinodes(antinodes_up)
-        |> record_antinodes(antinodes_down)
+        |> record_antinodes(find_increasing(pos2, difference, limit, resonant?))
+        |> record_antinodes(find_decreasing(pos1, difference, limit, resonant?))
       end)
     end)
   end
@@ -112,7 +109,6 @@ aoc 2024, 8 do
     |> record_antennae()
     |> find_antinodes(antinodes, limit, true)
     |> MapSet.to_list()
-    |> Enum.filter(fn {row, col} -> row >= 0 and col >= 0 and row < limit and col < limit end)
     |> Enum.count()
   end
 end
