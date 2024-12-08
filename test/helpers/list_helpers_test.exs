@@ -28,4 +28,40 @@ defmodule ListHelpersTest do
       assert ListHelpers.count_pattern([1, 2, 3], [4, 5]) == 0
     end
   end
+
+  describe "sort_list_of_lists/1" do
+    test "sorts basic lists of lists" do
+      input = [[3, 2], [1, 2], [2, 1]]
+      expected = [[1, 2], [2, 1], [3, 2]]
+      assert ListHelpers.sort_list_of_lists(input) == expected
+    end
+
+    test "handles empty list" do
+      assert ListHelpers.sort_list_of_lists([]) == []
+    end
+
+    test "handles lists with empty sublists" do
+      input = [[1, 2], [], [2]]
+      expected = [[], [1, 2], [2]]
+      assert ListHelpers.sort_list_of_lists(input) == expected
+    end
+
+    test "sorts lists of different lengths" do
+      input = [[1, 2, 3], [1, 2], [1]]
+      expected = [[1], [1, 2], [1, 2, 3]]
+      assert ListHelpers.sort_list_of_lists(input) == expected
+    end
+
+    test "sorts lists with equal elements" do
+      input = [[1, 1], [1, 1], [1]]
+      expected = [[1], [1, 1], [1, 1]]
+      assert ListHelpers.sort_list_of_lists(input) == expected
+    end
+
+    test "sorts string lists" do
+      input = [["b"], ["a", "b"], ["a"]]
+      expected = [["a"], ["a", "b"], ["b"]]
+      assert ListHelpers.sort_list_of_lists(input) == expected
+    end
+  end
 end

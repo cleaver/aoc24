@@ -5,6 +5,7 @@ aoc 2024, 7 do
   https://adventofcode.com/2024/day/7
   """
   import InputHelpers
+  import CombinationHelpers
 
   @doc """
       iex> p1(example_string())
@@ -61,26 +62,6 @@ aoc 2024, 7 do
       |> Enum.map(&String.to_integer/1)
 
     {String.to_integer(calibration), elements}
-  end
-
-  defp combine(operators, count) do
-    acc =
-      for operator <- operators do
-        [operator]
-      end
-
-    combine(operators, count - 1, acc)
-  end
-
-  defp combine(_, 0, acc), do: acc
-
-  defp combine(operators, count, acc) do
-    new_acc =
-      for combination <- acc, operator <- operators do
-        [operator | combination]
-      end
-
-    combine(operators, count - 1, new_acc)
   end
 
   @doc """
